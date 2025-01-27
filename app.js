@@ -11,12 +11,11 @@ const resultsDiv = document.querySelector(".search_results");
 let searchResults = [];
 const tasksArray = [];
 
-const task = {};
-
 addButton.addEventListener("click", createTask);
 searchButton.addEventListener("click", searchTaskByName);
 
 function createTask() {
+  const task = {};
   task.name = taskName.value;
   taskName.value = "";
   task.description = taskDescription.value;
@@ -45,6 +44,10 @@ function showTask(task) {
   div.appendChild(btnDiv);
 
   tasksDiv.appendChild(div);
+
+  // function updateTaskParagraph(){
+  //   taskParagraph.innerText = taskToString(task);
+  // }
 }
 
 function taskToString(task) {
@@ -63,7 +66,7 @@ function taskToString(task) {
       status = "Начата";
       break;
   }
-  return `Задача: ${task.name}\n Описание:${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${status}`;
+  return `Задача: ${task.name}\n Описание: ${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${status}`;
 }
 
 function createDeleteButton() {
@@ -101,21 +104,26 @@ function createCheckButton() {
 
 function searchTaskByName() {
   const input = searchInput.value;
-  const searchStatus = searchSelect.value;
+  let searchStatus = searchSelect.value; // Изменено на let
+  if (searchStatus === "status") searchStatus = "open";
   const regex = new RegExp(input, "i");
-  searchResults = tasksArray.filter((item) => regex.test(item.name));
+  
+  // Фильтрация по имени
+  const filteredByName = tasksArray.filter((item) => regex.test(item.name));
+  console.log(tasksArray);
+  console.log(filteredByName);
   resultsDiv.innerText = "";
+
+  // Фильтрация по статусу
+  const searchResults = filteredByName.filter((result) => result.status === searchStatus);
+  console.log(searchResults);
 
   if (searchResults.length > 0) {
     searchResults.forEach((result) => {
-      if (searchStatus === result.status) {
-        const div = document.createElement("div");
-        div.textContent = taskToString(result);
-        resultsDiv.appendChild(div);
-      }
+      const div = document.createElement("div");
+      div.innerText = taskToString(result);
+      resultsDiv.appendChild(div);
     });
-    console.log(searchResults);
-    searchResults = [];
   } else {
     resultsDiv.textContent = "Ничего не найдено.";
   }

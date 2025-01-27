@@ -172,6 +172,14 @@ color: #000;
   background-color: #fff;
   border-radius: 5px;
 }
+
+.search_results{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  padding: 5px 20px 5px 20px;
+}
 .tasks {
   background-color: #c89884;
 }
