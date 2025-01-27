@@ -11,8 +11,6 @@ const resultsDiv = document.querySelector(".search_results");
 let searchResults = [];
 const tasksArray = [];
 
-const isColor = true;
-
 const task = {};
 
 addButton.addEventListener("click", createTask);
@@ -24,6 +22,7 @@ function createTask() {
   task.description = taskDescription.value;
   taskDescription.value = "";
   task.status = taskStatus.value;
+  if(task.status === "status") task.status = "open";
   task.creationDate = date.toLocaleString();
 
   tasksArray.push(task);
@@ -33,44 +32,71 @@ function createTask() {
 function showTask(task) {
   const div = document.createElement("div");
   div.classList.add("task_field");
-
+  const btnDiv = document.createElement("div");
+  btnDiv.classList.add("task_buttons");
   const taskParagraph = document.createElement("p");
   taskParagraph.innerText = taskToString(task);
 
   const deleteButton = createDeleteButton();
+  const checkButton = createCheckButton();
   div.appendChild(taskParagraph);
-  div.appendChild(deleteButton);
+  btnDiv.appendChild(checkButton);
+  btnDiv.appendChild(deleteButton);
+  div.appendChild(btnDiv);
+
   tasksDiv.appendChild(div);
 }
 
 function taskToString(task) {
-  return `Задача: ${task.name}\n Описание:${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${task.status}`;
+  let status = "";
+  switch (task.status) {
+    case "open":
+      status = "Начата";
+      break;
+    case "critical":
+      status = "Важно";
+      break;
+    case "close":
+      status = "Завершена";
+      break;
+    case "status":
+      status = "Начата";
+      break;
+  }
+  return `Задача: ${task.name}\n Описание:${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${status}`;
 }
 
 function createDeleteButton() {
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete_btn");
   deleteButton.onclick = function () {
-    tasksDiv.removeChild(deleteButton.parentElement);
+    tasksDiv.removeChild(deleteButton.parentElement.parentElement);
     tasksArray.pop(task);
   };
   return deleteButton;
 }
 
-function createCheckButton(div) {
+function createCheckButton() {
   const checkButton = document.createElement("button");
-  // const originalColor = document.
+  let isChecked = true;
   checkButton.classList.add("check_btn");
-  checkButton.addEventListener("click", function () {
-    if (isColor) {
-      div.style.color = newColor; // Меняем на новый цвет
-    } else {
-      div.style.color = originalColor; // Возвращаем первоначальный цвет
-    }
-    // Переключаем флаг
-    islColor = !isColor;
-  });
+  checkButton.addEventListener("click", changeTaskToComplete);
   return checkButton;
+
+  function changeTaskToComplete(event) {
+    const button = event.currentTarget;
+    if (isChecked) {
+      button.style.backgroundImage = "url(../img/check_mark.svg)";
+      button.parentElement.parentElement.style.backgroundColor = "#603940";
+      isChecked = false;
+      task.status = "close";
+    } else {
+      button.style.backgroundImage = "none";
+      button.parentElement.parentElement.style.backgroundColor = " #c89884";
+      isChecked = true;
+      task.status = "open";
+    }
+  }
 }
 
 function searchTaskByName() {
@@ -78,17 +104,17 @@ function searchTaskByName() {
   const searchStatus = searchSelect.value;
   const regex = new RegExp(input, "i");
   searchResults = tasksArray.filter((item) => regex.test(item.name));
-  resultsDiv.innerHTML = "";
+  resultsDiv.innerText = "";
 
   if (searchResults.length > 0) {
     searchResults.forEach((result) => {
-        if(searchStatus === result.status){
-      const div = document.createElement("div");
-      div.textContent = taskToString(result);
-      resultsDiv.appendChild(div);
-    }
-    }); 
-     console.log(searchResults);
+      if (searchStatus === result.status) {
+        const div = document.createElement("div");
+        div.textContent = taskToString(result);
+        resultsDiv.appendChild(div);
+      }
+    });
+    console.log(searchResults);
     searchResults = [];
   } else {
     resultsDiv.textContent = "Ничего не найдено.";

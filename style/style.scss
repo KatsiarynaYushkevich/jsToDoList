@@ -21,7 +21,7 @@ $main_text_color: #44343c;
 
 h1 {
   margin: auto;
-  color: linear-gradient(red, violet);
+ margin-bottom: 10px;
 }
 
 button {
@@ -40,6 +40,7 @@ p {
 input {
   @include main_text_style();
   min-height: 30px;
+  min-width: 300px;
   border: none;
   border-radius: 3px;
   padding: 5px;
@@ -53,12 +54,27 @@ input:focus{
 input:focus::placeholder{
   opacity: 0;
 }
+select{
+  border: none;
+  outline: none;
+}
 select:focus {
     border: none;
-    outline: none;
-  
+    outline:none;
 }
 
+textarea{
+@include main_text_style( );
+resize: none;
+border: none;
+border-radius: 3px;
+width: 100%;
+padding: 5px;
+}
+textarea:focus{
+  border: none;
+  outline:none;
+}
 .wrapper {
   max-width: 1128px;
   margin: auto;
@@ -72,33 +88,49 @@ select:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 30px 0 30px 0;
+}
+
+.task_container{
+  display: flex;
+  column-gap: 10px;
 }
 .task_info {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  max-width: 300px;
 }
 .task{
-  display: flex;
-  column-gap: 50px;
+  align-items: center;
+  justify-content: space-between;
 }
-
+.task_select{
+  justify-content: space-between;
+}
 .custom_select {
-  @include main_text_style();
-  min-width: 250px;
+  min-width: 200px;
+  position: relative;
 }
 
 .custom_select select{
+  @include main_text_style();
   appearance: none;
+  overflow: hidden;
+  background: #fff url('../img/select_arrow.svg') no-repeat right;
   width: 100%;
-  padding: 5px 110px 10px 5px;
-  border: 1px solid #44343c;
+  padding: 5px 10px 10px 5px;
   border-radius: 3px;
   color: #000;
   cursor: pointer;
 }
 
+.custom_select select option:not(:checked){
+color: #000;
+}
+.custom_select select option:checked{
+  color: #44343c;
+  font-weight: bold;
+  }
 .task_field {
   display: flex;
   column-gap: 5px;
@@ -106,12 +138,6 @@ select:focus {
   justify-content: space-between;
   padding: 5px 20px 5px 20px;
   border-bottom: 1px solid #44343c;
-}
-
-.delete_btn {
-  background-color: red;
-  color: white;
-  max-width: 30px;
 }
 
 .search_field {
@@ -123,8 +149,14 @@ select:focus {
   justify-content: center;
   align-items: center;
   column-gap: 10px;
+  padding: 10px 0 10px 0;
 }
 
+.search_panel{
+  display: flex;
+  column-gap: 5px;
+  margin-bottom: 5px;
+}
 .search_button{
   background-color: #44343c;
   background-image: url(../img/search_icon.svg);
@@ -144,11 +176,22 @@ select:focus {
   background-color: #c89884;
 }
 
-.check_btn{
+.task_buttons{
+  display: flex;
+  column-gap: 5px;
+}
 
+.check_btn{
+  background-size: contain;
+  background-color: green;
+  color: white;
+  max-width: 30px;
 }
 
 .delete_btn{
   background-image: url(../img/delete_icon.svg);
   background-size: contain;
+  background-color: red;
+  color: white;
+  max-width: 30px;
 }

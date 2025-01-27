@@ -10,14 +10,23 @@
     <div class="header wrapper">
       <div>
         <h1>MyToDoList</h1>
-        <div class="task_info">
-          <div class="task">
+        <div class="task_container">
+          <div class="task task_info">
             <input
               class="task_name"
               type="text"
               placeholder="Название задачи"
               required
             />
+        <textarea
+              name="description"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Краткое описание задачи"
+            ></textarea>
+          </div>
+          <div class="task_select task_info">
             <div class="custom_select">
               <select name="priority_select" id="status">
                 <option value="status" hidden selected disabled>Статус</option>
@@ -26,27 +35,21 @@
                 <option value="critical">Важно</option>
               </select>
             </div>
-          </div>
-          <div>
-            <textarea
-              name="description"
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Опишите подробности вашей задачи"
-            ></textarea>
             <button class="add_button">Добавить</button>
           </div>
         </div>
       </div>
     </div>
     <div class="search_field wrapper">
-      <div>
+      <div class="search_panel">
+        <div class="custom_select">
         <select name="search_select" id="search_select">
+          <option value="status" hidden selected disabled>Статус</option>
           <option value="open">Начата</option>
           <option value="close">Завершена</option>
           <option value="critical">Важно</option>
         </select>
+      </div>
         <div class="search_input">
           <input id="search" type="text" placeholder="Введите название" />
           <button class="search_button"></button>
