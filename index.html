@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header wrapper">
+      <div>
+        <h1>MyToDoList</h1>
+        <div class="task_info">
+          <div class="task">
+            <input
+              class="task_name"
+              type="text"
+              placeholder="Название задачи"
+              required
+            />
+            <div class="custom_select">
+              <select name="priority_select" id="status">
+                <option value="status" hidden selected disabled>Статус</option>
+                <option value="open">Начата</option>
+                <option value="close">Завершена</option>
+                <option value="critical">Важно</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <textarea
+              name="description"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Опишите подробности вашей задачи"
+            ></textarea>
+            <button class="add_button">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search_field wrapper">
+      <div>
+        <select name="search_select" id="search_select">
+          <option value="open">Начата</option>
+          <option value="close">Завершена</option>
+          <option value="critical">Важно</option>
+        </select>
+        <div class="search_input">
+          <input id="search" type="text" placeholder="Введите название" />
+          <button class="search_button"></button>
+        </div>
+      </div>
+      <div class="search_results"></div>
+    </div>
+    <div class="tasks wrapper"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
