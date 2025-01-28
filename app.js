@@ -82,7 +82,7 @@ function createDeleteButton(task) {
 
 function createCheckButton(task, taskDiv, taskParagraph) {
   const checkButton = document.createElement("button");
-  const originalStatus = getOriginalStatus(task);
+  const originalStatus = task.status;
   let isChecked = true;
   checkButton.classList.add("check_btn");
   checkButton.addEventListener("click", (event) =>
@@ -103,27 +103,19 @@ function createCheckButton(task, taskDiv, taskParagraph) {
       button.style.backgroundImage = "none";
       isChecked = true;
 
-    (previousStatus === "close") ? task.status = originalStatus : task.status = previousStatus;
+      previousStatus === "close"
+        ? (task.status = originalStatus)
+        : (task.status = previousStatus);
 
-    (task.status === "critical") ? taskDiv.style.backgroundColor = "#f6d22d" :
-    taskDiv.style.backgroundColor = "#fccc72";
+      task.status === "critical"
+        ? (taskDiv.style.backgroundColor = "#f6d22d")
+        : (taskDiv.style.backgroundColor = "#fccc72");
     }
 
     taskParagraph.innerText = taskToString(task);
   }
 }
 
-function getOriginalStatus(task) {
-  let originalStatus = "";
-  switch (task.status) {
-    case "open":
-      originalStatus = "open";
-      break;
-    case "critical":
-      originalStatus = "critical";
-  }
-  return originalStatus;
-}
 function searchTaskByName() {
   const input = searchInput.value;
   let searchStatus = searchSelect.value;
