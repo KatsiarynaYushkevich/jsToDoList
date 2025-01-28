@@ -17,37 +17,43 @@ searchButton.addEventListener("click", searchTaskByName);
 function createTask() {
   const task = {};
   task.name = taskName.value;
+  console.log(task.name);
   taskName.value = "";
-  task.description = taskDescription.value;
+  task.description = taskDescription.value; 
   taskDescription.value = "";
   task.status = taskStatus.value;
-  if(task.status === "status") task.status = "open";
+  if (task.status === "status") task.status = "open";
   task.creationDate = date.toLocaleString();
+  if (!isStringEmpty(task.name) && task.status !== "status") {
+    tasksArray.push(task);
+    showTask(task);
+  }
 
-  tasksArray.push(task);
-  showTask(task);
+  function isStringEmpty(str) {
+    const str1 = String(str);    
+    if (str1.trim() === '') 
+      return true;  
+    return false;
+  }
 }
 
 function showTask(task) {
   const div = document.createElement("div");
   div.classList.add("task_field");
+  div.classList.add("line_break");
   const btnDiv = document.createElement("div");
   btnDiv.classList.add("task_buttons");
   const taskParagraph = document.createElement("p");
   taskParagraph.innerText = taskToString(task);
 
-  const deleteButton = createDeleteButton();
-  const checkButton = createCheckButton();
+  const deleteButton = createDeleteButton(task);
+  const checkButton = createCheckButton(task);
   div.appendChild(taskParagraph);
   btnDiv.appendChild(checkButton);
   btnDiv.appendChild(deleteButton);
   div.appendChild(btnDiv);
 
   tasksDiv.appendChild(div);
-
-  // function updateTaskParagraph(){
-  //   taskParagraph.innerText = taskToString(task);
-  // }
 }
 
 function taskToString(task) {
@@ -69,7 +75,7 @@ function taskToString(task) {
   return `Задача: ${task.name}\n Описание: ${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${status}`;
 }
 
-function createDeleteButton() {
+function createDeleteButton(task) {
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete_btn");
   deleteButton.onclick = function () {
@@ -79,7 +85,8 @@ function createDeleteButton() {
   return deleteButton;
 }
 
-function createCheckButton() {
+function createCheckButton(task) {
+  
   const checkButton = document.createElement("button");
   let isChecked = true;
   checkButton.classList.add("check_btn");
@@ -104,18 +111,18 @@ function createCheckButton() {
 
 function searchTaskByName() {
   const input = searchInput.value;
-  let searchStatus = searchSelect.value; // Изменено на let
+  let searchStatus = searchSelect.value;
   if (searchStatus === "status") searchStatus = "open";
   const regex = new RegExp(input, "i");
-  
-  // Фильтрация по имени
+
   const filteredByName = tasksArray.filter((item) => regex.test(item.name));
   console.log(tasksArray);
   console.log(filteredByName);
   resultsDiv.innerText = "";
 
-  // Фильтрация по статусу
-  const searchResults = filteredByName.filter((result) => result.status === searchStatus);
+  const searchResults = filteredByName.filter(
+    (result) => result.status === searchStatus
+  );
   console.log(searchResults);
 
   if (searchResults.length > 0) {

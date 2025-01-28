@@ -21,7 +21,7 @@ $main_text_color: #44343c;
 
 h1 {
   margin: auto;
- margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 button {
@@ -46,34 +46,34 @@ input {
   padding: 5px;
 }
 
-input:focus{
+input:focus {
   border: none;
   outline: none;
 }
 
-input:focus::placeholder{
+input:focus::placeholder {
   opacity: 0;
 }
-select{
+select {
   border: none;
   outline: none;
 }
 select:focus {
-    border: none;
-    outline:none;
+  border: none;
+  outline: none;
 }
 
-textarea{
-@include main_text_style( );
-resize: none;
-border: none;
-border-radius: 3px;
-width: 100%;
-padding: 5px;
-}
-textarea:focus{
+textarea {
+  @include main_text_style();
+  resize: none;
   border: none;
-  outline:none;
+  border-radius: 3px;
+  width: 100%;
+  padding: 5px;
+}
+textarea:focus {
+  border: none;
+  outline: none;
 }
 .wrapper {
   max-width: 1128px;
@@ -91,7 +91,7 @@ textarea:focus{
   padding: 30px 0 30px 0;
 }
 
-.task_container{
+.task_container {
   display: flex;
   column-gap: 10px;
 }
@@ -100,11 +100,14 @@ textarea:focus{
   flex-direction: column;
   row-gap: 10px;
 }
-.task{
+.task_name {
+  min-height: 34px;
+}
+.task {
   align-items: center;
   justify-content: space-between;
 }
-.task_select{
+.task_select {
   justify-content: space-between;
 }
 .custom_select {
@@ -112,11 +115,11 @@ textarea:focus{
   position: relative;
 }
 
-.custom_select select{
+.custom_select select {
   @include main_text_style();
   appearance: none;
   overflow: hidden;
-  background: #fff url('../img/select_arrow.svg') no-repeat right;
+  background: #fff url("../img/select_arrow.svg") no-repeat right;
   width: 100%;
   padding: 5px 10px 10px 5px;
   border-radius: 3px;
@@ -124,13 +127,13 @@ textarea:focus{
   cursor: pointer;
 }
 
-.custom_select select option:not(:checked){
-color: #000;
+.custom_select select option:not(:checked) {
+  color: #000;
 }
-.custom_select select option:checked{
+.custom_select select option:checked {
   color: #44343c;
   font-weight: bold;
-  }
+}
 .task_field {
   display: flex;
   column-gap: 5px;
@@ -138,6 +141,11 @@ color: #000;
   justify-content: space-between;
   padding: 5px 20px 5px 20px;
   border-bottom: 1px solid #44343c;
+}
+
+.add_button {
+  background-color: #44343c;
+  color: #fff;
 }
 
 .search_field {
@@ -152,19 +160,19 @@ color: #000;
   padding: 10px 0 10px 0;
 }
 
-.search_panel{
+.search_panel {
   display: flex;
   column-gap: 5px;
   margin-bottom: 5px;
 }
-.search_button{
+.search_button {
   background-color: #44343c;
   background-image: url(../img/search_icon.svg);
   background-size: contain;
   // border: 2px solid #44343c;
 }
 
-.search_input{
+.search_input {
   display: flex;
   align-items: center;
   column-gap: 5px;
@@ -173,7 +181,7 @@ color: #000;
   border-radius: 5px;
 }
 
-.search_results{
+.search_results {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -184,22 +192,82 @@ color: #000;
   background-color: #c89884;
 }
 
-.task_buttons{
+.task_buttons {
   display: flex;
   column-gap: 5px;
 }
 
-.check_btn{
+.check_btn {
   background-size: contain;
   background-color: green;
   color: white;
   max-width: 30px;
 }
 
-.delete_btn{
+.delete_btn {
   background-image: url(../img/delete_icon.svg);
   background-size: contain;
   background-color: red;
   color: white;
   max-width: 30px;
+}
+
+.line_break {
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow-x: hidden;
+}
+@media (max-width: 570px) {
+  .task_container {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .search_panel {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .task_field {
+    flex-direction: column-reverse;
+    row-gap: 10px;
+    align-items: flex-end;
+  }
+}
+
+@media (hover: hover) {
+  .search_button:hover {
+    background-color: #c89884;
+  }
+
+  .add_button:hover {
+    background-color: #c89884;
+  }
+
+  .check_btn:hover{
+    background-color: lightgreen;
+  }
+
+  .delete_btn:hover{
+    background-color: palevioletred;
+  }
+}
+
+@media (hover: none) {
+  .search_button:hover {
+    background-color: #c89884;
+  }
+
+  .add_button:hover {
+    background-color: #c89884;
+  }
+
+  .check_btn:hover{
+    background-color: lightgreen;
+  }
+
+  .delete_btn:hover{
+    background-color: palevioletred;
+  }
 }

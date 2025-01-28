@@ -112,6 +112,10 @@ textarea:focus {
   row-gap: 10px;
 }
 
+.task_name {
+  min-height: 34px;
+}
+
 .task {
   align-items: center;
   justify-content: space-between;
@@ -160,6 +164,11 @@ textarea:focus {
   justify-content: space-between;
   padding: 5px 20px 5px 20px;
   border-bottom: 1px solid #44343c;
+}
+
+.add_button {
+  background-color: #44343c;
+  color: #fff;
 }
 
 .search_field {
@@ -229,4 +238,56 @@ textarea:focus {
   background-color: red;
   color: white;
   max-width: 30px;
+}
+
+.line_break {
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow-x: hidden;
+}
+
+@media (max-width: 570px) {
+  .task_container {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .search_panel {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
+@media (max-width: 450px) {
+  .task_field {
+    flex-direction: column-reverse;
+    row-gap: 10px;
+    align-items: flex-end;
+  }
+}
+@media (hover: hover) {
+  .search_button:hover {
+    background-color: #c89884;
+  }
+  .add_button:hover {
+    background-color: #c89884;
+  }
+  .check_btn:hover {
+    background-color: lightgreen;
+  }
+  .delete_btn:hover {
+    background-color: palevioletred;
+  }
+}
+@media (hover: none) {
+  .search_button:hover {
+    background-color: #c89884;
+  }
+  .add_button:hover {
+    background-color: #c89884;
+  }
+  .check_btn:hover {
+    background-color: lightgreen;
+  }
+  .delete_btn:hover {
+    background-color: palevioletred;
+  }
 }/*# sourceMappingURL=style.css.map */
