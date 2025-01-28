@@ -7,55 +7,61 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="header wrapper">
-      <div>
-        <h1>MyToDoList</h1>
-        <div class="task_container">
-          <div class="task task_info">
-            <input
-              class="task_name"
-              type="text"
-              placeholder="Название задачи"
-            />
-        <textarea
-              name="description"
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Краткое описание задачи"
-            ></textarea>
-          </div>
-          <div class="task_select task_info">
-            <div class="custom_select">
-              <select name="priority_select" id="status">
-                <option value="status" hidden selected disabled>Статус</option>
-                <option value="open">Начата</option>
-                <option value="critical">Важно</option>
-              </select>
+    <div class="header_container">
+      <div class="header wrapper">
+        <div>
+          <h1>MyToDoList</h1>
+          <div class="task_container">
+            <div class="task task_info">
+              <input
+                class="task_name"
+                type="text"
+                placeholder="Название задачи"
+              />
+              <textarea
+                name="description"
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Краткое описание задачи"
+              ></textarea>
             </div>
-            <button class="add_button">Добавить</button>
+            <div class="task_select task_info">
+              <div class="custom_select">
+                <select name="priority_select" id="status">
+                  <option value="open"selected >Начата</option>
+                  <option value="critical">Важно</option>
+                </select>
+              </div>
+              <button class="add_button">Добавить</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="search_field wrapper">
-      <div class="search_panel">
-        <div class="custom_select">
-        <select name="search_select" id="search_select">
-          <option value="status" hidden selected disabled>Статус</option>
-          <option value="open">Начата</option>
-          <option value="close">Завершена</option>
-          <option value="critical">Важно</option>
-        </select>
-      </div>
-        <div class="search_input">
-          <input id="search" type="text" placeholder="Введите название" />
-          <button class="search_button"></button>
+    <div class="search_container">
+      <div class="search_field wrapper">
+        <div class="search_panel">
+          <div class="custom_select">
+            <select name="search_select" id="search_select">
+              <option value="open"  selected >Начата</option>
+              <option value="close">Завершена</option>
+              <option value="critical">Важно</option>
+            </select>
+          </div>
+          <div class="search_input">
+            <input id="search" type="text" placeholder="Введите название" />
+            <button class="search_button"></button>
+          </div>
         </div>
       </div>
-      <div class="search_results"></div>
+      <div class="wrapper">
+        <div class="search_results"></div>
+      </div>
     </div>
+    <div class="tasks_container">
     <div class="tasks wrapper"></div>
+  </div>
     <script src="./app.js"></script>
   </body>
 </html>

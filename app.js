@@ -17,22 +17,19 @@ searchButton.addEventListener("click", searchTaskByName);
 function createTask() {
   const task = {};
   task.name = taskName.value;
-  console.log(task.name);
   taskName.value = "";
-  task.description = taskDescription.value; 
+  task.description = taskDescription.value;
   taskDescription.value = "";
   task.status = taskStatus.value;
-  if (task.status === "status") task.status = "open";
   task.creationDate = date.toLocaleString();
-  if (!isStringEmpty(task.name) && task.status !== "status") {
+  if (!isStringEmpty(task.name)) {
     tasksArray.push(task);
     showTask(task);
   }
 
   function isStringEmpty(str) {
-    const str1 = String(str);    
-    if (str1.trim() === '') 
-      return true;  
+    const str1 = String(str);
+    if (str1.trim() === "") return true;
     return false;
   }
 }
@@ -41,13 +38,14 @@ function showTask(task) {
   const div = document.createElement("div");
   div.classList.add("task_field");
   div.classList.add("line_break");
+  if (task.status === "critical") div.style.backgroundColor = "#f6d22d";
   const btnDiv = document.createElement("div");
   btnDiv.classList.add("task_buttons");
   const taskParagraph = document.createElement("p");
   taskParagraph.innerText = taskToString(task);
 
   const deleteButton = createDeleteButton(task);
-  const checkButton = createCheckButton(task);
+  const checkButton = createCheckButton(task, div, taskParagraph);
   div.appendChild(taskParagraph);
   btnDiv.appendChild(checkButton);
   btnDiv.appendChild(deleteButton);
@@ -68,9 +66,6 @@ function taskToString(task) {
     case "close":
       status = "Завершена";
       break;
-    case "status":
-      status = "Начата";
-      break;
   }
   return `Задача: ${task.name}\n Описание: ${task.description}\n Дата создания: ${task.creationDate}\n Статус: ${status}`;
 }
@@ -85,30 +80,50 @@ function createDeleteButton(task) {
   return deleteButton;
 }
 
-function createCheckButton(task) {
-  
+function createCheckButton(task, taskDiv, taskParagraph) {
   const checkButton = document.createElement("button");
+  const originalStatus = getOriginalStatus(task);
   let isChecked = true;
   checkButton.classList.add("check_btn");
-  checkButton.addEventListener("click", changeTaskToComplete);
+  checkButton.addEventListener("click", (event) =>
+    changeTaskToComplete(event, task, taskDiv, taskParagraph)
+  );
   return checkButton;
 
-  function changeTaskToComplete(event) {
+  function changeTaskToComplete(event, task, taskDiv, taskParagraph) {
     const button = event.currentTarget;
+    let previousStatus = task.status;
+
     if (isChecked) {
       button.style.backgroundImage = "url(../img/check_mark.svg)";
-      button.parentElement.parentElement.style.backgroundColor = "#603940";
+      taskDiv.style.backgroundColor = "#998766";
       isChecked = false;
       task.status = "close";
     } else {
       button.style.backgroundImage = "none";
-      button.parentElement.parentElement.style.backgroundColor = " #c89884";
       isChecked = true;
-      task.status = "open";
+
+    (previousStatus === "close") ? task.status = originalStatus : task.status = previousStatus;
+
+    (task.status === "critical") ? taskDiv.style.backgroundColor = "#f6d22d" :
+    taskDiv.style.backgroundColor = "#fccc72";
     }
+
+    taskParagraph.innerText = taskToString(task);
   }
 }
 
+function getOriginalStatus(task) {
+  let originalStatus = "";
+  switch (task.status) {
+    case "open":
+      originalStatus = "open";
+      break;
+    case "critical":
+      originalStatus = "critical";
+  }
+  return originalStatus;
+}
 function searchTaskByName() {
   const input = searchInput.value;
   let searchStatus = searchSelect.value;

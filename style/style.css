@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #fccc72;
+}
+
 h1 {
   margin: auto;
   margin-bottom: 10px;
@@ -90,8 +94,11 @@ textarea:focus {
   font-weight: 400;
 }
 
+.header_container {
+  background-color: #fccc72;
+}
+
 .header {
-  background-color: #f7cf8d;
   display: flex;
   row-gap: 10px;
   flex-direction: column;
@@ -167,12 +174,15 @@ textarea:focus {
 }
 
 .add_button {
-  background-color: #44343c;
+  background-color: #f98c0d;
   color: #fff;
 }
 
+.search_container {
+  background-color: #f98c0d;
+}
+
 .search_field {
-  background-color: #44343c;
   color: #fff;
   min-height: 50px;
   display: flex;
@@ -192,7 +202,7 @@ textarea:focus {
 }
 
 .search_button {
-  background-color: #44343c;
+  background-color: #f98c0d;
   background-image: url(../img/search_icon.svg);
   background-size: contain;
 }
@@ -213,10 +223,14 @@ textarea:focus {
   flex-direction: column;
   row-gap: 5px;
   padding: 5px 20px 5px 20px;
+  font-family: Montserrat;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
 }
 
-.tasks {
-  background-color: #c89884;
+.tasks_container {
+  background-color: #fccc72;
 }
 
 .task_buttons {
@@ -227,7 +241,7 @@ textarea:focus {
 
 .check_btn {
   background-size: contain;
-  background-color: green;
+  background-color: #06d6a0;
   color: white;
   max-width: 30px;
 }
@@ -235,7 +249,7 @@ textarea:focus {
 .delete_btn {
   background-image: url(../img/delete_icon.svg);
   background-size: contain;
-  background-color: red;
+  background-color: #ef476f;
   color: white;
   max-width: 30px;
 }
