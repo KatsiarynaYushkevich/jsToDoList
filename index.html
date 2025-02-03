@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div class="header_container">
+      <div class="wrapper header">
+        <h1>ToDoList</h1>
+        <form id="add_form" class="flex_row">
+          <div class="flex_column">
+            <input
+              id="task_name"
+              class="task_name"
+              type="text"
+              placeholder="Задача: "
+              required
+            />
+            <textarea
+              id="task_description"
+              cols="30"
+              rows="10"
+              placeholder="Краткое описание задачи"
+            ></textarea>
+          </div>
+          <div class="flex_column">
+            <div class="custom_select">
+              <select id="add_select">
+                <option value="open" selected>Начата</option>
+                <option value="close">Завершена</option>
+                <option value="critical">Важно</option>
+              </select>
+            </div>
+            <button class="add_button" type="submit">Добавить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="search_container">
+      <div class="wrapper search_field">
+        <form class="flex_column" action="">
+          <div class="flex_row center">
+          <div class="search_input">
+            <input id="search" type="text" placeholder="Введите название" />
+            <button type="submit" class="search_button"></button>
+          </div>
+          </div>
+          <div class="flex_row wide">
+          <div class="flex_row completed">
+            <p>Выполненные</p>
+            <input id="complete" type="checkbox" class="complete_checkbox" />
+          </div>
+          <div class="flex_row completed">
+            <p>Начатые</p>
+            <input id="started" type="checkbox" class="complete_checkbox" />
+          </div>
+          <div class="flex_row completed">
+            <p>Важные</p>
+            <input id="important" type="checkbox" class="complete_checkbox" />
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="tasks wrapper">
+      <div class="modal">
+        <div class="modal-content">
+          <span>Изменить задание:</span>
+          <form class="flex_row change_form">
+            <div class="flex_column">
+            <span>Название:</span>
+            <span>Описание:</span>
+            <span>Статус:</span>
+            </div>
+            <div class="flex_column">
+            <input id="change_name" type="text">
+            <input id="change_description" type="text">
+            <div class="custom_select">
+            <select name="change_status" id="change_status">
+              <option value="open" selected>Начата</option>
+              <option value="close">Завершена</option>
+              <option value="critical">Важно</option>
+            </select>
+          </div>
+          </div>
+          </form>
+          <div class="flex_column save">
+          <button class="add_button modal_btn" id="save_changes">Сохранить</button>
+          <button class="add_button modal_btn" id="return">Назад</button>
+        </div>
+        </div>
+      </div>
+      <ul class="tasks_ul flex_column"></ul>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
