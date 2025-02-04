@@ -15,7 +15,8 @@ let searchResults = [];
 let tasksArray = [];
 
 const modal = document.querySelector(".modal");
-const save_button = document.querySelector("#save_changes");
+const change_task_form = document.querySelector("#change_form");
+// const save_button = document.querySelector("#save_changes");
 const return_button = document.querySelector("#return");
 const name_change_input = document.querySelector("#change_name");
 const desc_change_input = document.querySelector("#change_description");
@@ -60,10 +61,10 @@ function addTask(task) {
   const checkbox = liElement.querySelector(".check");
   switch (task.status) {
     case "open":
-      liElement.style.backgroundColor = "#f0f0f0";
+      liElement.style.backgroundColor = "#edf49f";
       break;
     case "close":
-      liElement.style.backgroundColor = "#998766";
+      liElement.style.backgroundColor = "#f98c0d";
       checkbox.checked = true;
       break;
     case "critical":
@@ -105,7 +106,8 @@ tasks_ul.addEventListener("click", (event) => {
   }
 });
 
-save_button.addEventListener("click", () => {
+change_task_form.addEventListener("submit", (event) => {
+  event.preventDefault();
   if (currentTask) {
     changeTaskInfo(currentTask);
     modal.style.display = "none";
@@ -115,6 +117,7 @@ save_button.addEventListener("click", () => {
 
 return_button.addEventListener("click", () => {
   modal.style.display = "none";
+  console.log(tasksArray);
 });
 
 function changeTaskInfo(task) {
@@ -151,10 +154,10 @@ tasks_ul.addEventListener("change", (event) => {
   const originalStatus = task.originalStatus;
   changeTaskStatus(checkbox, task, originalStatus);
   if (checkbox.checked) {
-    li.style.backgroundColor = "#998766";
+    li.style.backgroundColor = "#f98c0d";
   } else {
     if (task.status == "critical") li.style.backgroundColor = "yellow";
-    li.style.backgroundColor = "#f0f0f0";
+    li.style.backgroundColor = "#edf49f";
   }
 });
 

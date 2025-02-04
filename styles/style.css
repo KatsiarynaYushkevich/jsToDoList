@@ -5,10 +5,18 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #edf49f;
+}
+
 h1 {
   margin: auto;
   margin-bottom: 10px;
   text-align: center;
+  font-family: Montserrat;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 input {
@@ -226,6 +234,7 @@ button {
 
 .search_container {
   background-color: #f98c0d;
+  margin-bottom: 20px;
 }
 
 .search_field {
@@ -308,7 +317,7 @@ button {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -317,19 +326,36 @@ button {
   width: 50%;
   font-size: 20px;
   background-color: #f8cf39;
-  border-radius: 5px;
+  border: 5px solid #f98c0d;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.modal-content span {
+  font-family: Montserrat;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+}
 
 .change_form {
   margin: 20px 0 20px 0;
+  row-gap: 30px;
+}
+.change_form span {
+  font-family: Montserrat;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+.change_form button {
+  max-width: 300px;
 }
 
 .save {
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .modal_btn {

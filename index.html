@@ -69,14 +69,14 @@
       <div class="modal">
         <div class="modal-content">
           <span>Изменить задание:</span>
-          <form class="flex_row change_form">
+          <form id="change_form" name="change_form" class="flex_row change_form">
             <div class="flex_column">
             <span>Название:</span>
             <span>Описание:</span>
             <span>Статус:</span>
             </div>
             <div class="flex_column">
-            <input id="change_name" type="text">
+            <input id="change_name" type="text" required>
             <input id="change_description" type="text">
             <div class="custom_select">
             <select name="change_status" id="change_status">
@@ -85,12 +85,12 @@
               <option value="critical">Важно</option>
             </select>
           </div>
+        </div>
+          <div class="flex_column save">
+            <button class="add_button modal_btn" id="save_changes" type="submit">Сохранить</button>
+            <button class="add_button modal_btn" id="return">Назад</button>
           </div>
           </form>
-          <div class="flex_column save">
-          <button class="add_button modal_btn" id="save_changes">Сохранить</button>
-          <button class="add_button modal_btn" id="return">Назад</button>
-        </div>
         </div>
       </div>
       <ul class="tasks_ul flex_column"></ul>

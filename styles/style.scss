@@ -19,10 +19,14 @@ $main_text_color: #44343c;
   box-sizing: border-box;
 }
 
+body{
+  background-color: #edf49f;
+}
 h1 {
   margin: auto;
   margin-bottom: 10px;
   text-align: center;
+  @include main_text_style(40px, 600, #fff);
 }
 
 input {
@@ -198,6 +202,7 @@ button {
 
 .search_container {
   background-color: #f98c0d;
+  margin-bottom: 20px;
 }
 .search_field {
   color: #fff;
@@ -265,7 +270,7 @@ button {
   top: 0;
   width:100vw; 
   height: 100vh; 
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.6);
 }
 
 .modal-content {
@@ -274,20 +279,31 @@ button {
   width: 50%; 
   font-size: 20px;
   background-color: #f8cf39;
-  border-radius: 5px;
+  border: 5px solid #f98c0d;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content:center;
+  span{
+    @include main_text_style(20px, 600, #fff);
+  }
  }
 
  .change_form{
   margin: 20px 0 20px 0;
+  row-gap: 30px;
+  span{
+  @include main_text_style(18px, 600, #fff);
+}
+button{
+  max-width: 300px;
+}
  }
 
- .save{
+ .save{ 
+justify-content: space-between;
 
-  justify-content: space-around;
  }
 
  .modal_btn{
