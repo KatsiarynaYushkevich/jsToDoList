@@ -23,13 +23,13 @@ const status_change_select = document.querySelector("#change_status");
 
 task_form.addEventListener("submit", createTask);
 
-
 function createTask(event) {
   event.preventDefault();
   const task = {};
   task.name = taskName.value;
   task.description = taskDescription.value;
   task.status = taskStatus.value;
+  task.originalStatus = task.status;
   const date = new Date();
   task.creationDate = date.toLocaleString();
   task.id = tasksArray.length + 1;
@@ -44,8 +44,10 @@ function addTask(task) {
   liElement.classList.add("li_task");
   liElement.innerHTML = `
   <div class="text_part">
+  <span>Задание: </span>
   <span id="name">${task.name}</span>
     <p>${taskToString(task)}</p> 
+    <spsn>Статус: </spsn>
     <span id="status">${task.status}</span>
     </div>
     <div class="task_buttons">
@@ -55,6 +57,19 @@ function addTask(task) {
     </div>
     `;
   tasks_ul.appendChild(liElement);
+  const checkbox = liElement.querySelector(".check");
+  switch (task.status) {
+    case "open":
+      liElement.style.backgroundColor = "#f0f0f0";
+      break;
+    case "close":
+      liElement.style.backgroundColor = "#998766";
+      checkbox.checked = true;
+      break;
+    case "critical":
+      liElement.style.backgroundColor = "yellow";
+      break;
+  }
 }
 
 function showAllTasks(arr) {
@@ -76,13 +91,12 @@ tasks_ul.addEventListener("click", (event) => {
   }
 });
 
-let currentTask = null; 
+let currentTask = null;
 
 tasks_ul.addEventListener("click", (event) => {
   if (event.target.classList.contains("change_button")) {
     const id = event.target.id;
-    currentTask = tasksArray.find((t) => t.id == id); 
-    console.log(currentTask);
+    currentTask = tasksArray.find((t) => t.id == id);
     modal.style.display = "block";
 
     name_change_input.value = currentTask.name;
@@ -91,40 +105,58 @@ tasks_ul.addEventListener("click", (event) => {
   }
 });
 
-// Обработчик события для кнопки сохранения
 save_button.addEventListener("click", () => {
   if (currentTask) {
-    changeTaskInfo(currentTask); // Передаем текущую задачу в функцию
-    modal.style.display = "none"; // Закрываем модальное окно после сохранения
-    console.log(tasksArray);
+    changeTaskInfo(currentTask);
+    modal.style.display = "none";
     showAllTasks(tasksArray);
   }
-  
+});
+
+return_button.addEventListener("click", () => {
+  modal.style.display = "none";
 });
 
 function changeTaskInfo(task) {
   task.name = name_change_input.value.trim();
   task.description = desc_change_input.value.trim();
   task.status = status_change_select.value.trim();
-  console.log(task.name, task.description, task.status);
 }
-// tasks_ul.addEventListener("change", (event) => {
-//     const checkbox = event.target;
-//     const id = checkbox.id;
-//     const li = checkbox.parentNode.parentNode;
-//     const task = tasksArray.find((t) => t.id === id);
-//     const originalStatus = task.status;
 
-//     if (checkbox.checked) {
-//       li.style.backgroundColor = "#998766";
-//       task.status = "close";
-//     } else {
-//       button.style.backgroundImage = "none";
-//       task.status = originalStatus;
-//       li.style.backgroundColor = task.status === "critical" ? "#f6d22d" : "#fccc72";
-//     }
-//     showAllTasks(tasksArray);
-//   });
+function changeTaskStatus(checkbox, task, originalStatus) {
+  if (originalStatus !== "close") {
+    if (checkbox.checked) {
+      task.status = "close";
+      showAllTasks(tasksArray);
+    } else {
+      task.status = originalStatus;
+      showAllTasks(tasksArray);
+    }
+  } else{
+  if (checkbox.checked) {
+    task.status = originalStatus;
+    showAllTasks(tasksArray);
+  } else {
+    task.status = "open";
+    showAllTasks(tasksArray);
+  }
+}
+}
+
+tasks_ul.addEventListener("change", (event) => {
+  const checkbox = event.target;
+  const id = checkbox.id;
+  const li = checkbox.parentNode.parentNode;
+  const task = tasksArray.find((t) => t.id == id);
+  const originalStatus = task.originalStatus;
+  changeTaskStatus(checkbox, task, originalStatus);
+  if (checkbox.checked) {
+    li.style.backgroundColor = "#998766";
+  } else {
+    if (task.status == "critical") li.style.backgroundColor = "yellow";
+    li.style.backgroundColor = "#f0f0f0";
+  }
+});
 
 searchInput.oninput = function () {
   let input = this.value.trim();
@@ -144,32 +176,35 @@ searchInput.oninput = function () {
   }
 };
 
-completedCheckbox.addEventListener("change", ()=>{
-if(completedCheckbox.checked){
-  importantCheckbox.checked = false;
-  startedCheckbox.checked = false;
-}});
+completedCheckbox.addEventListener("change", () => {
+  if (completedCheckbox.checked) {
+    importantCheckbox.checked = false;
+    startedCheckbox.checked = false;
+  }
+});
 
-importantCheckbox.addEventListener("change", ()=>{
-  if(importantCheckbox.checked){
+importantCheckbox.addEventListener("change", () => {
+  if (importantCheckbox.checked) {
     completedCheckbox.checked = false;
     startedCheckbox.checked = false;
-  }});
+  }
+});
 
-  startedCheckbox.addEventListener("change", ()=>{
-    if(startedCheckbox.checked){
-      completedCheckbox.checked = false;
-      importantCheckbox.checked = false;
-    }});
+startedCheckbox.addEventListener("change", () => {
+  if (startedCheckbox.checked) {
+    completedCheckbox.checked = false;
+    importantCheckbox.checked = false;
+  }
+});
 
-  filterTasksByStatus(completedCheckbox, "close");
-  filterTasksByStatus(startedCheckbox, "open");
-  filterTasksByStatus(importantCheckbox, "critical");
+filterTasksByStatus(completedCheckbox, "close");
+filterTasksByStatus(startedCheckbox, "open");
+filterTasksByStatus(importantCheckbox, "critical");
 
 function filterTasksByStatus(checkbox, status) {
   checkbox.addEventListener("change", (event) => {
     let results = document.querySelectorAll(".tasks_ul li span#status");
-    
+
     if (event.currentTarget.checked) {
       results.forEach((result) => {
         let result_div = result.parentNode.parentNode;
